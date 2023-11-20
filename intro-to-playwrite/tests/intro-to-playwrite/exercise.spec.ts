@@ -160,7 +160,7 @@ test.describe("My Test Suite", () => {
     );
     const submitBtn = page.locator('input[type="submit"]');
     const errorMessage = page.locator('label[id="checkbox-tos-error"]');
-    
+
     await submitBtn.click();
     expect(await errorMessage.isVisible());
   });

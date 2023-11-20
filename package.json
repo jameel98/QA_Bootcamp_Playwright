@@ -1,5 +1,5 @@
 {
-  "name": "element-location",
+  "name": "playwright",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,11 +8,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "playwright": "^1.39.0",
+    "playwright": "^1.40.0",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.39.0",
-    "@types/node": "^20.9.0"
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.9.2"
   }
 }
