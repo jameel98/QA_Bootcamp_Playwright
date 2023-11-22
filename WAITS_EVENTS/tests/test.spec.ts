@@ -2,7 +2,8 @@ import { test, expect, Page, BrowserContext } from "@playwright/test";
 import { MainPage } from "../pages/MainPage";
 import { CompanyDetailsPage } from "../pages/CompanyDetailsPage";
 
-const BASE_URL = "https://tase.co.il";
+const BASE_URL =
+  "https://market.tase.co.il/he/market_data/daily-review/indices";
 const DATE = "05/11/2023";
 const CATEGORY_VALUE = "02";
 
