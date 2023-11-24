@@ -6,12 +6,13 @@ import { TasksPage } from "../logic/pages/TasksPage";
 const BASE_URL = "https://todoist.com/";
 const email: string = "adminjameel@gmail.com";
 const password: string = "admin123";
+
 test.describe("State Stock Table Validation Suite", () => {
   let context: BrowserContext;
   let page: Page;
 
-  let login: LoginPage
-  let home : HomePage
+  let login: LoginPage;
+  let home: HomePage;
 
   test.beforeAll(async () => {
     page = await context.newPage();
@@ -25,16 +26,39 @@ test.describe("State Stock Table Validation Suite", () => {
     await context.close();
   });
 
-  test("Login successfuly ", async ({ page }) => {
-    home.clickLoginButton()
-    await login.loginFullProccess(email, password);
-    new TasksPage(page);
-    expect(page.url()).toBe(
-      "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-    );
+  test.describe("after login", async () => {
+    home.clickLoginButton();
+    let tasks: TasksPage;
+    test.beforeEach(async ({ page }) => {
+      await login.loginFullProccess(email, password);
+      tasks = new TasksPage(page);
+    });
+
+    test("add new task today -> go to today -> check the task", async ({
+      page,
+    }) => {
+      let data = { tname: "task1", description: "cook dinner" };
+      const currentDate: Date = new Date();
+      const formattedDate: string = Utils.formatDateToString(currentDate);
+      tasks.clickAddTask();
+      tasks.addTaskFullProcesss(data.tname, data.description, 4, formattedDate);
+      await expect(page.locator(".items li")).toHaveText("task1");
+    });
+
+    test("add new task for future date -> go to inbox -> check the task", async ({
+      page,
+    }) => {
+      let data = { tname: "task2", description: "cook dinner" };
+      const futureDate: Date = Utils.getDateRelativeToNow(7); // 7 days in the future
+      const formattedDate: string = Utils.formatDateToString(futureDate);
+      tasks.clickAddTask();
+      tasks.addTaskFullProcesss(data.tname, data.description, 4, formattedDate);
+
+      await expect(page.locator(".items li")).toHaveText("task2");
+    });
+
+    test("add new project -> go to my projects -> check the project", async ({
+      page,
+    }) => {});
   });
-
-
-
-  
 });
