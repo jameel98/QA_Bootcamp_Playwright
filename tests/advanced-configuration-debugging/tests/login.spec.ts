@@ -7,7 +7,7 @@ const BASE_URL = "https://todoist.com/";
 const email: string = "adminjameel@gmail.com";
 const password: string = "admin123";
 
-test.describe("State Stock Table Validation Suite", () => {
+test.describe("Todoist login tests", () => {
   let context: BrowserContext;
   let page: Page;
 
