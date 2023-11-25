@@ -1,4 +1,11 @@
-import { test, expect, Page, BrowserContext } from "@playwright/test";
+import {
+  test,
+  expect,
+  Page,
+  BrowserContext,
+  Browser,
+  chromium,
+} from "@playwright/test";
 import { LoginPage } from "../logic/pages/LoginPage";
 import { HomePage } from "../logic/pages/HomePage";
 import { TasksPage } from "../logic/pages/TasksPage";
@@ -10,16 +17,20 @@ const password: string = "admin123";
 test.describe("State Stock Table Validation Suite", () => {
   let context: BrowserContext;
   let page: Page;
+  let browser: Browser;
 
   let login: LoginPage;
   let home: HomePage;
 
   test.beforeAll(async () => {
-    page = await context.newPage();
+    browser = await chromium.launch();
+    context = await browser.newContext();
   });
 
   test.beforeEach(async () => {
+    page = await context.newPage();
     await page.goto(BASE_URL);
+    home = new HomePage(page);
   });
 
   test.afterAll(async () => {
@@ -34,9 +45,7 @@ test.describe("State Stock Table Validation Suite", () => {
       tasks = new TasksPage(page);
     });
 
-    test("add new task today -> go to today -> check the task", async ({
-      page,
-    }) => {
+    test("add new task today -> go to today -> check the task", async () => {
       let data = { tname: "task1", description: "cook dinner" };
       const currentDate: Date = new Date();
       const formattedDate: string = Utils.formatDateToString(currentDate);
@@ -45,9 +54,7 @@ test.describe("State Stock Table Validation Suite", () => {
       await expect(page.locator(".items li")).toHaveText("task1");
     });
 
-    test("add new task for future date -> go to inbox -> check the task", async ({
-      page,
-    }) => {
+    test("add new task for future date -> go to inbox -> check the task", async () => {
       let data = { tname: "task2", description: "cook dinner" };
       const futureDate: Date = Utils.getDateRelativeToNow(7); // 7 days in the future
       const formattedDate: string = Utils.formatDateToString(futureDate);
@@ -57,8 +64,6 @@ test.describe("State Stock Table Validation Suite", () => {
       await expect(page.locator(".items li")).toHaveText("task2");
     });
 
-    test("add new project -> go to my projects -> check the project", async ({
-      page,
-    }) => {});
+    test("add new project -> go to my projects -> check the project", async () => {});
   });
 });
