@@ -21,7 +21,7 @@ test.describe("SignIn Page Validations Suite", () => {
   });
 
   const users = [
-    { name: "pop", pass: "1234", errmessage: "Username not found" },
+    { name: "pop", pass: "admin123", errmessage: "Username not found" },
     { name: "adminjameel", pass: "jameel", errmessage: "Invalid Password" },
     {
       name: "adminjameel",

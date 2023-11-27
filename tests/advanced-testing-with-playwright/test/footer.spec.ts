@@ -1,6 +1,5 @@
 import { test, expect, Browser, chromium } from '@playwright/test';
-import { HomePage } from '../logic/pages/Home';
-import { Footer } from '../logic/components/Footer';
+          import { Footer } from '../logic/components/Footer';
 
 const BASE_URL = 'https://www.pokellector.com/';
 

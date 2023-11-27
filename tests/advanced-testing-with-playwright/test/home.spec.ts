@@ -32,10 +32,11 @@ test.describe('Search Validations Suite', () => {
         test(`Go to Home Page -> Search for :${card.name} -> Validate results match the card`, async ({ page }) => {
             const homePage = new HomePage(page);
             await homePage.searchForCard(card.name);
+            await homePage.waitForLoad()
 
-            const randomCard = await homePage.getCardNameAfterSearch();
-            console.log("Found Card: " + randomCard);
-            expect(randomCard).toContain(card.name);
+            const firstCard = await homePage.getCardNameAfterSearch();
+            console.log("Found Card: " + firstCard);
+            expect(firstCard).toContain(card.name);
         });
     }
 });
