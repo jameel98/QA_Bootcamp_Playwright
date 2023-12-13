@@ -1,7 +1,7 @@
 import { request } from "@playwright/test";
 import { loginRequest } from "./request/login-request";
 
-const BASE_URL = 'https://www.rami-levy.co.il';
+const BASE_URL = 'https://www-api.rami-levy.co.il';
 
 export class LoginApi {
 

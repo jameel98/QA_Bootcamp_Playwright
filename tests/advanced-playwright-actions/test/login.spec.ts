@@ -33,9 +33,8 @@ test.describe('State Stock Table Validation Suite', () => {
     test.afterAll(async () => {
         await context.close();
     });
-
-    test('Login via api -> Validate login successfully', async ({ request }) => {
-
+test('Login via api -> Validate login successfully', async ({ request }) => {
+    try {
         const loginData = setLoginData();
         const loginApi = new LoginApi();
         const response = await loginApi.login(loginData)
@@ -48,22 +47,12 @@ test.describe('State Stock Table Validation Suite', () => {
         const username = await homePage.getUserName();
 
         console.log("UserName: " + username);
-        expect.soft(bodyRes.username).toBe(username);
-
-    });
-
-
-    // test('Login', async () => {
-    //     const homePage = new HomePage(page);
-    //     await homePage.pressLogin();
-
-    //     const loginPopUp = await homePage.getLogInPopUp();
-    //     await loginPopUp.fullProccessLogin(EMAIL, PASSWORD);
-
-    //     await page.waitForTimeout(5000);
-    // });
-
-
+        expect.soft(bodyRes.first_name).toBe(username);
+    } catch (error) {
+        console.error('Error:', error);
+        throw error; // Rethrow the error to fail the test
+    }
+});
 
 
 });
